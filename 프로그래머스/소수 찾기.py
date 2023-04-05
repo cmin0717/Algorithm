@@ -12,6 +12,7 @@ def solution(numbers):
     dic = {0:1, 1:1} # 0,1은 소수로 판단할수없기에 미리 넣어둔다.
     for i in range(1, len(nums)+1):
         for j in permutations(nums,i):
+            print(j)
             new_num = int(''.join(j))
             if dic.get(new_num) == None:
                 dic[new_num] = 1
