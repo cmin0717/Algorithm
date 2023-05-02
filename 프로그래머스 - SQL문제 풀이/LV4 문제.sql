@@ -119,3 +119,28 @@ JOIN PATIENT P
 ON A.PT_NO = P.PT_NO -- 가져온 정보에서 환자테이블에서 해당 환자 데이터를 가져온다.
 WHERE LEFT(A.APNT_YMD,10) = '2022-04-13' -- 해당일에 속하는 데이터만 출력
 ORDER BY A.APNT_YMD
+
+
+-- 주문량이 많은 아이스크림들 조회하기 --
+SELECT F.FLAVOR
+FROM FIRST_HALF F
+JOIN(
+SELECT FLAVOR, SUM(TOTAL_ORDER) AS TOTAL_ORDER
+FROM JULY
+GROUP BY FLAVOR) AS J -- 미리 7월의 각 맛별로 총 주문량을 구해온다.
+ON F.FLAVOR = J.FLAVOR -- 두개의 테이블을 조인
+GROUP BY F.FLAVOR -- 맛별로 그룹화 한다.
+ORDER BY F.TOTAL_ORDER + J.TOTAL_ORDER DESC --두개의 총 주문량을 더한값을 기준으로 내림차순 정렬
+LIMIT 3 -- 그중 3개만 출력
+
+
+-- 저자 별 카테고리 별 매출액 집계하기 --
+SELECT A.AUTHOR_ID, A.AUTHOR_NAME, B.CATEGORY, SUM(S.SALES * B.PRICE) AS TOTAL_SALES -- 해당그룹에서 각 책들의 총판매가격을 합해서 출력
+FROM BOOK B
+JOIN AUTHOR A
+ON B.AUTHOR_ID = A.AUTHOR_ID
+JOIN BOOK_SALES S
+ON B.BOOK_ID = S.BOOK_ID -- 3개의 테이블을 연관된것끼리 JOIN하여 하나의 테이블로 생성
+WHERE LEFT(S.SALES_DATE,7) = '2022-01' -- 그중 날짜가 조건에 맞는 애들만 가져온다.
+GROUP BY A.AUTHOR_ID, B.CATEGORY -- ID와 카테고리로 그룹을 형성시킨다.
+ORDER BY A.AUTHOR_ID,B.CATEGORY DESC
