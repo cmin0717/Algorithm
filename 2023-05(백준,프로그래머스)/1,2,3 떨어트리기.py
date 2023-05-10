@@ -49,20 +49,13 @@ def solution(edges, target):
         element = [3]*visit[s]
         tt,idx = (visit[s] * 3) - target[s], 0
         while tt > 0:
-            if tt >= 3:
-                element[idx] = 1
-                tt -= 2
-            else:
-                element[idx] -= tt
-                tt = 0
+            element[idx] = 1 if tt >= 3 else element[idx]-tt
+            tt -= 2
             idx += 1
         dic[s] = deque(element)
 
     # 위에서 구한 방문한 리프노드 순서대로 딕셔너리에서 값을 하나씩 뺴서 결과값 출력
-    result = []
-    for s in stay:
-        result.append(dic[s].popleft())
-    return result
+    return [dic[s].popleft() for s in stay]
 
 
 # 불필요한 코드가 있어서 디벨롭했다.(구버전)
