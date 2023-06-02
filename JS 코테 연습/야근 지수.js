@@ -28,3 +28,19 @@ solution(	5, [2, 3, 10])
 // heapq 안쓰고 풀고 있는데 아무리봐도 이거 답임.
 // 반박시 내말이 다 맞음 시발.....
 // 도저히 반레를 못찾겠다...
+
+// 파이썬 heapq 사용 풀이
+// from heapq import *
+
+// def solution(n, works):
+    
+//     h = [-w for w in works]
+//     heapify(h)
+    
+//     while h and n != 0:
+//         num = heappop(h)
+//         n -= 1
+//         if (num + 1) < 0:
+//             heappush(h, num+1)
+    
+//     return sum([i**2 for i in h])
