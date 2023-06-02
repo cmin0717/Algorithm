@@ -4,7 +4,7 @@ from itertools import permutations
 def solution(board, r, c):
     def find(board,x,y,f):
         h = [[0,x,y,f"{x}-{y}"]]
-        
+
         while h:
             cnt,x,y,visit = heappop(h)
             
