@@ -29,6 +29,33 @@ solution(	5, [2, 3, 10])
 // 반박시 내말이 다 맞음 시발.....
 // 도저히 반레를 못찾겠다...
 
+// 그냥 최대값을 하나씩 빼는 완탐으로 구현했다.
+function solution(n, works) {
+    
+    if (works.reduce((a,b) => a+b) <= n) return 0
+    
+    while (n !== 0){
+        
+        let [max, idx] = [0, 0]
+        for (let i = 0; i<works.length; i++){
+            if (max < works[i]){
+                max = works[i]
+                idx = i
+            }
+        }
+        n -= 1
+        works[idx] -= 1
+    }
+    
+    let result = 0
+    for (let i of works){
+        result += i**2
+    }
+    return result
+}
+
+
+
 // 파이썬 heapq 사용 풀이
 // from heapq import *
 
